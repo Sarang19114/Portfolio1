@@ -279,19 +279,44 @@ export const techStackIcons = [
 export const expCards = [
   {
     review:
-"Sarang contributed significantly to our client’s real-time buoy tracking system. His work with Phoenix LiveView enhanced system interactivity and responsiveness, while his implementation of robust authentication and comprehensive CRUD functionalities ensured smooth and secure data management across user roles.",
+      "Sarang is actively researching and developing the Live Programmable Interface (LPI) framework for Personal Digital Twins (PDTs) at Winniio AB. His work focuses on creating intelligent peer matchmaking and explainable AI-driven decision support, enhancing system adaptability and connected care insights.",
+
+    imgPath: "/assets/wii.png",
+    logoPath: "/assets/wii.png",
+    title: "Research & Development Intern - Winniio AB",
+    date: "Oct 2025 – Present",
+    responsibilities: [
+      "Researching and developing the Live Programmable Interface (LPI) framework for Personal Digital Twins (PDTs).",
+      "Designing algorithms for intelligent peer matchmaking to enhance connected care and patient recovery insights.",
+      "Implementing explainable AI modules to provide interpretable decision support within the system.",
+      "Documenting system design, architecture, and experimental results for internal review and publication.",
+      "Collaborating with team members to integrate new modules and test simulation scenarios."
+    ],
+
+    bosses: [
+      {
+        photo: "/assets/ruq.png",
+        name: "Ruqayya Shah",
+        position: "Co-Researcher, Winniio AB",
+        link: "https://www.linkedin.com/in/ruqayya-shah-92032923b"
+      }
+    ]
+  },
+  {
+    review:
+      "Sarang contributed significantly to our client’s real-time buoy tracking system. His work with Phoenix LiveView enhanced system interactivity and responsiveness, while his implementation of robust authentication and comprehensive CRUD functionalities ensured smooth and secure data management across user roles.",
 
     imgPath: "/assets/essentia.png",
     logoPath: "/assets/essentia.png",
     title: "Software Intern - Essentia.dev",
-    date: "May 2025 – Present",
-responsibilities: [
-  "Built a real-time buoy tracking system using Elixir, Phoenix, and LiveView with simulated telemetry via GenServers.",
-  "Developed an admin dashboard with full CRUD functionality for devices, users, and logs.",
-  "Implemented role-based authentication to manage access across admin, owner, and viewer views.",
-  "Integrated MapLibre for live map visualizations with custom markers and JS hooks.",
-  "Documented system architecture, user flows, and deployment steps for team onboarding and handover.",
-],
+    date: "May 2025 – July 2025",
+    responsibilities: [
+      "Built a real-time buoy tracking system using Elixir, Phoenix, and LiveView with simulated telemetry via GenServers.",
+      "Developed an admin dashboard with full CRUD functionality for devices, users, and logs.",
+      "Implemented role-based authentication to manage access across admin, owner, and viewer views.",
+      "Integrated MapLibre for live map visualizations with custom markers and JS hooks.",
+      "Documented system architecture, user flows, and deployment steps for team onboarding and handover.",
+    ],
 
     bosses: [
       {
@@ -309,11 +334,11 @@ responsibilities: [
     logoPath: "/assets/TriggerMind1.png",
     title: "Technical Lead - TriggerMind",
     date: "March 2024 - Present",
-responsibilities: [
-  "Developed and maintained the official club website to showcase events, projects, and member achievements.",
-  "Organized and led technical events, coding competitions, DSA sessions, and hands-on workshops.",
-  "Strengthened the club’s technical culture through consistent collaboration, mentorship, and event execution.",
-],
+    responsibilities: [
+      "Developed and maintained the official club website to showcase events, projects, and member achievements.",
+      "Organized and led technical events, coding competitions, DSA sessions, and hands-on workshops.",
+      "Strengthened the club’s technical culture through consistent collaboration, mentorship, and event execution.",
+    ],
     bosses: [
       {
         photo: "/assets/jnv.png",

@@ -44,8 +44,8 @@ section {
   --color-white: #ffffff;
   --color-black-50: #1c1c21;
   --color-black-100: #0e0e10;
-  --color-black-200: #282732;
-  --color-black-300: #2a2a35;
+  --color-black-200: #1a1a2e;
+  --color-black-300: #16213e;
   --color-black-500: #404040;
   --color-black-600: #1a1a1a;
   --color-blue-50: #839cb5;
@@ -69,7 +69,7 @@ section {
   }
 
   .head-text {
-    @apply sm:text-4xl text-3xl font-semibold text-gray_gradient;
+    @apply sm:text-4xl text-3xl font-semibold text-white;
   }
 
   .nav-ul {
@@ -112,7 +112,7 @@ section {
 
   /* about section */
   .grid-container {
-    @apply w-full h-full border border-black-300 bg-black-200 rounded-lg sm:p-7 p-4 flex flex-col gap-5;
+    @apply w-full h-full border border-black-300 bg-black-200/90 backdrop-blur-md rounded-lg sm:p-7 p-4 flex flex-col gap-5 shadow-lg shadow-black/50;
   }
 
   .grid-headtext {
@@ -133,7 +133,7 @@ section {
   }
 
   .tech-logo {
-    @apply w-10 h-10 rounded-md p-2 bg-neutral-100 bg-opacity-10 backdrop-filter backdrop-blur-lg flex justify-center items-center;
+    @apply w-10 h-10 rounded-md p-2 bg-black-300/80 backdrop-filter backdrop-blur-lg flex justify-center items-center border border-gray-700/50;
   }
 
   /* clients section */
@@ -142,7 +142,7 @@ section {
   }
 
   .client-review {
-    @apply rounded-lg md:p-10 p-5 col-span-1 bg-black-300 bg-opacity-50;
+    @apply rounded-lg md:p-10 p-5 col-span-1 bg-black-300/85 backdrop-blur-md shadow-lg shadow-black/50;
   }
 
   .client-content {
@@ -394,7 +394,7 @@ section {
   }
 
   .card-border {
-    @apply border border-zinc-800 bg-black-100;
+    @apply border border-black-300/50 bg-black-200/90 backdrop-blur-md shadow-lg shadow-black/50;
   }
 
   .marquee-item {
@@ -406,11 +406,11 @@ section {
   }
 
   .timeline {
-    @apply absolute z-10 h-[110%] -top-10 w-14 md:w-28 bg-black;
+    @apply absolute z-10 h-[110%] -top-10 w-1 bg-transparent;
   }
 
   .timeline-logo {
-    @apply md:size-20 size-10 flex-none rounded-full flex justify-center items-center md:-translate-y-7 border border-zinc-800 bg-black-100;
+    @apply md:size-20 size-10 flex-none rounded-full flex justify-center items-center md:-translate-y-7 border border-zinc-700/50 bg-black-200/90 backdrop-blur-md shadow-lg shadow-black/50;
   }
 
   .timeline-img {
@@ -607,6 +607,7 @@ section {
     #fd5c79 62.83%,
     #6d45ce 92.91%
   );
+  box-shadow: 0 0 10px rgba(98, 224, 255, 0.3);
 }
 
 .gradient-edge:nth-of-type(1) {

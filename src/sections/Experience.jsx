@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { expCards } from "../constants";
 import GlowCard from "../components/GlowCard";
 import gsap from "gsap";
@@ -7,7 +7,36 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const ExperienceSection = () => {
+  const timelineLineRef = useRef(null);
+  const sectionRef = useRef(null);
+
   useEffect(() => {
+    // Clear all previous ScrollTriggers to avoid conflicts
+    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+
+    // Animate the timeline line progressively as user scrolls
+    if (timelineLineRef.current && sectionRef.current) {
+      gsap.fromTo(
+        timelineLineRef.current,
+        {
+          scaleY: 0,
+          transformOrigin: "top center"
+        },
+        {
+          scaleY: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 30%",
+            end: "bottom 70%",
+            scrub: 1,
+            markers: false
+          }
+        }
+      );
+    }
+
+    // Animate timeline cards
     gsap.utils.toArray(".timeline-card").forEach((card) => {
       gsap.fromTo(
         card,
@@ -23,29 +52,15 @@ const ExperienceSection = () => {
           ease: "power2.inOut",
           scrollTrigger: {
             trigger: card,
-            start: "top 60%",
-            end: "top 30%",
+            start: "top 70%",
+            end: "top 40%",
             toggleActions: "play none none reverse",
           },
         }
       );
     });
 
-    gsap.to(".timeline", {
-      transformOrigin: "bottom bottom",
-      ease: "power1.inOut",
-      scrollTrigger: {
-        trigger: ".timeline",
-        start: "top center",
-        end: "70% center",
-        onUpdate: (self) => {
-          gsap.to(".timeline", {
-            scaleY: 1 - self.progress,
-          });
-        },
-      },
-    });
-
+    // Animate experience text
     setTimeout(() => {
       gsap.utils.toArray(".expText").forEach((text) => {
         gsap.fromTo(
@@ -65,21 +80,27 @@ const ExperienceSection = () => {
         );
       });
     }, 100);
+
+    // Cleanup function
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   return (
     <section
+      ref={sectionRef}
       id="experience"
       className="w-full md:mt-40 mt-20 section-padding xl:px-0"
     >
       <div className="w-full h-full md:px-20 px-5">
-        <p className="head-text">Professional Work Experience</p>
+        <p className="head-text text-white">Professional Work Experience</p>
 
         <div className="mt-32 relative">
-          <div className="relative z-50 xl:space-y-32 space-y-10">
+          <div className="relative z-50 flex flex-col gap-40 md:gap-48 xl:gap-32">
             {expCards.map((card, index) => (
-              <div className="exp-card-wrapper" key={card.title}>
-                <div className="xl:w-2/6 timeline-card">
+              <div className="exp-card-wrapper w-full relative" key={card.title} style={{ zIndex: expCards.length - index }}>
+                <div className="w-full xl:w-2/6 timeline-card mb-16 xl:mb-0 relative" style={{ zIndex: expCards.length - index + 10 }}>
                   <GlowCard card={card} index={index}>
                     <div className="flex flex-col items-start gap-3">
                       {/* Boss section with hover effects */}
@@ -120,14 +141,17 @@ const ExperienceSection = () => {
                   </GlowCard>
                 </div>
 
-                <div className="xl:w-4/6">
-                  <div className="flex items-start">
+                <div className="w-full xl:w-4/6">
+                  <div className="flex items-start mt-16 xl:mt-0">
                     <div className="timeline-wrapper">
-                      <div className="timeline" />
-                      <div className="gradient-line w-1 h-full" />
+                      <div 
+                        ref={index === 0 ? timelineLineRef : null}
+                        className="gradient-line h-full"
+                        style={index === 0 ? { transformOrigin: "top center" } : {}}
+                      />
                     </div>
 
-                    <div className="expText flex xl:gap20 md:gap-10 gap-5 relative z-20">
+                    <div className="expText flex xl:gap-20 md:gap-10 gap-5 relative z-20">
                       <div className="timeline-logo">
                         <img src={card.logoPath} alt="logo" className="rounded-full" />
                       </div>

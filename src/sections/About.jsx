@@ -24,7 +24,7 @@ const About = () => {
   };
 
   return (
-    <section className="c-space my-20" id="about">
+    <section className="c-space my-20" id="about" >
       <div className="grid xl:grid-cols-3 xl:grid-rows-6 md:grid-cols-2 grid-cols-1 gap-5 h-full">
         <div className="col-span-1 xl:row-span-3">
           <div className="grid-container">
@@ -53,18 +53,17 @@ const About = () => {
                 <li className="relative group">
                   Tech Lead of the <strong>Trigger Mind Club</strong> – Developed the official club
                   <a
-                    href="https://sarangrastogi.vercel.app"
+                    href="https://trigger-mind.vercel.app"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-500 underline font-bold cursor-pointer ml-1 relative"
                   >
                     website
-                    {/* Hover Preview Box (Above the text) */}
                     <div className="absolute bottom-full left-0 z-30 hidden group-hover:block mb-3">
                       <div className="w-[400px] h-[250px] rounded-xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-500 via-purple-600 to-indigo-600 p-[2px]">
                         <div className="w-full h-full bg-black rounded-[10px] overflow-hidden">
                           <iframe
-                            src="https://sarangrastogi.vercel.app"
+                            src="https://trigger-mind.vercel.app"
                             title="Trigger Mind Preview"
                             className="w-full h-full"
                             style={{

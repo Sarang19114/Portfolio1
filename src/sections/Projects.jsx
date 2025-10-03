@@ -34,7 +34,7 @@ const Projects = () => {
       <p className="head-text">My Selected Work</p>
 
       <div className="grid lg:grid-cols-2 grid-cols-1 mt-12 gap-5 w-full">
-        <div className="flex flex-col gap-5 relative sm:p-10 py-10 px-5 shadow-2xl shadow-black-200">
+        <div className="flex flex-col gap-5 relative sm:p-10 py-10 px-5 shadow-2xl shadow-black-200 bg-black-200/90 backdrop-blur-md rounded-lg border border-black-300/50">
           <div className="absolute top-0 right-0">
             <img src={currentProject.spotlight} alt="spotlight" className="w-full h-96 object-cover rounded-xl" />
           </div>
@@ -80,7 +80,7 @@ const Projects = () => {
           </div>
         </div>
 
-        <div className="border border-black-300 bg-black-200 rounded-lg h-96 md:h-full">
+        <div className="border border-black-300 bg-black-200/90 backdrop-blur-md rounded-lg h-96 md:h-full shadow-lg shadow-black/50">
           <Canvas>
             <ambientLight intensity={Math.PI} />
             <directionalLight position={[10, 10, 5]} />
