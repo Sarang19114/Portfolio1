@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
 import Globe from 'react-globe.gl';
 import GitHubCalendar from 'react-github-calendar';
 
@@ -30,7 +31,7 @@ const About = () => {
       <div className="grid xl:grid-cols-3 xl:grid-rows-6 md:grid-cols-2 grid-cols-1 gap-5 h-full">
         <div className="col-span-1 xl:row-span-3">
           <div className="grid-container">
-            <img src="assets/me.png" alt="grid-1" className="w-full sm:h-[276px] h-fit object-contain" />
+            <Image src="/assets/me.png" alt="grid-1" width={500} height={276} className="w-full sm:h-[276px] h-fit object-contain" />
 
             <div>
               <p className="grid-headtext">Hi, I&apos;m Sarang Rastogi</p>
@@ -122,7 +123,7 @@ const About = () => {
 
         <div className="xl:col-span-2 xl:row-span-3">
           <div className="grid-container">
-            <img src="assets/grid3.png" alt="grid-3" className="w-full sm:h-[266px] h-fit object-contain" />
+            <Image src="/assets/grid3.png" alt="grid-3" width={800} height={266} className="w-full sm:h-[266px] h-fit object-contain" />
 
             <div>
               <p className="grid-headtext">My Passion for Coding</p>

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from "react";
+import Image from "next/image";
 import GlowCard from "../components/GlowCard";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -119,10 +120,12 @@ const ExperienceSection = ({ experiences = [] }) => {
                                 rel="noopener noreferrer"
                                 className="relative group"
                               >
-                                <img
+                                <Image
                                   src={boss.photo}
                                   alt={boss.name}
                                   title={`View ${boss.name} on LinkedIn`}
+                                  width={64}
+                                  height={64}
                                   className="w-16 h-16 rounded-full object-cover border border-white grayscale group-hover:grayscale-0 group-hover:scale-105 transition duration-300"
                                 />
                                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 rounded-full">
@@ -158,7 +161,7 @@ const ExperienceSection = ({ experiences = [] }) => {
 
                     <div className="expText flex xl:gap-20 md:gap-10 gap-5 relative z-20">
                       <div className="timeline-logo">
-                        <img src={card.logoPath} alt="logo" className="rounded-full" />
+                        <Image src={card.logoPath} alt="logo" width={80} height={80} className="rounded-full" />
                       </div>
                       <div>
                         <h1 className="font-semibold text-3xl">{card.title}</h1>

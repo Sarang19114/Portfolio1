@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 
 /**
  * Hook to track if an element is in the viewport
@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from 'react';
  * @param {number} options.threshold - Percentage of visibility required (default: 0.01)
  * @param {boolean} options.triggerOnce - Only trigger once (default: false for pause/resume)
  * @param {boolean} options.unmountWhenHidden - Completely unmount when not visible (default: false)
+ * @param {Function} options.callback - Optional callback when visibility changes
  * @returns {Object} { ref, isInView, hasBeenInView }
  */
 export function useInView(options = {}) {
@@ -16,12 +17,16 @@ export function useInView(options = {}) {
     rootMargin = '200px',
     threshold = 0.01,
     triggerOnce = false,
-    unmountWhenHidden = false
+    unmountWhenHidden = false,
+    callback
   } = options;
 
   const ref = useRef(null);
   const [isInView, setIsInView] = useState(false);
   const [hasBeenInView, setHasBeenInView] = useState(false);
+
+  // Memoize callback to prevent unnecessary re-renders
+  const stableCallback = useCallback(callback || (() => {}), [callback]);
 
   useEffect(() => {
     const element = ref.current;
@@ -43,6 +48,11 @@ export function useInView(options = {}) {
           setHasBeenInView(true);
         }
 
+        // Call callback if provided
+        if (callback) {
+          stableCallback(inView);
+        }
+
         // If triggerOnce, disconnect after first view
         if (triggerOnce && inView) {
           observer.disconnect();
@@ -59,7 +69,7 @@ export function useInView(options = {}) {
     return () => {
       observer.disconnect();
     };
-  }, [rootMargin, threshold, triggerOnce, hasBeenInView]);
+  }, [rootMargin, threshold, triggerOnce, hasBeenInView, stableCallback, callback]);
 
   return {
     ref,

@@ -2,6 +2,7 @@
 
 import emailjs from '@emailjs/browser';
 import { useRef, useState } from 'react';
+import Image from 'next/image';
 
 import useAlert from '../hooks/useAlert.js';
 import Alert from '../components/Alert.jsx';
@@ -122,7 +123,7 @@ const Contact = () => {
 
             <button className="field-btn" type="submit" disabled={loading}>
               {loading ? 'Sending...' : 'Send Message'}
-              <img src="/assets/arrow-up.png" alt="arrow-up" className="field-btn_arrow" />
+              <Image src="/assets/arrow-up.png" alt="arrow-up" width={20} height={20} className="field-btn_arrow" />
             </button>
           </form>
         </div>
