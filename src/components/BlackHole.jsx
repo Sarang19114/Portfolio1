@@ -1,15 +1,26 @@
+'use client';
+
 import React, { useRef, useEffect, useState } from 'react';
 import * as THREE from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
+import { useInView } from '../hooks/useInView';
 
 const BlackHole = ({ className = '' }) => {
   const mountRef = useRef(null);
   const resizeTimeoutRef = useRef(null);
   const rafRef = useRef(null);
   const mouseRef = useRef({ x: 0, y: 0 });
+  const isPausedRef = useRef(false);
+  
+  // Track visibility for pausing render loop
+  const { ref: visibilityRef, isInView } = useInView({
+    rootMargin: '0px',
+    threshold: 0.01,
+    triggerOnce: false
+  });
 
   useEffect(() => {
     const mount = mountRef.current;
@@ -381,6 +392,12 @@ const BlackHole = ({ className = '' }) => {
 
     const animate = () => {
       rafRef.current = requestAnimationFrame(animate);
+      
+      // Pause rendering when not in viewport to save GPU
+      if (!isInView || isPausedRef.current) {
+        return;
+      }
+      
       const elapsedTime = clock.getElapsedTime();
       const deltaTime = clock.getDelta();
 
@@ -428,7 +445,7 @@ const BlackHole = ({ className = '' }) => {
       }
       renderer.dispose();
     };
-  }, []);
+  }, [isInView]); // Add isInView dependency
 
   return (
     <>
@@ -449,7 +466,13 @@ const BlackHole = ({ className = '' }) => {
           opacity: 0.8;
         }
       `}</style>
-      <div className={`blackhole-background ${className}`} ref={mountRef}></div>
+      <div 
+        className={`blackhole-background ${className}`} 
+        ref={(node) => {
+          mountRef.current = node;
+          visibilityRef.current = node;
+        }}
+      ></div>
     </>
   );
 };

@@ -1,6 +1,10 @@
 
 
 
+'use client';
+
+
+
 const ContactExperience = () => {
   return (
     <div>

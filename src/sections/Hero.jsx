@@ -1,6 +1,16 @@
+// Hero Section - Server Component (text is server-rendered)
+// Only BlackHole loads client-side for better performance
+import dynamic from 'next/dynamic';
 import Button from '../components/Button.jsx';
 import { Spotlight } from '../components/ui/spotlight-new.jsx';
-import BlackHole from '../components/BlackHole.jsx';
+
+// Dynamically import BlackHole - it's heavy (~600KB with Three.js)
+// ssr: false = don't render on server (Three.js needs browser)
+// loading = placeholder while JS loads
+const BlackHole = dynamic(() => import('../components/BlackHole.jsx'), {
+  ssr: false,
+  loading: () => <div className="w-full h-screen bg-black" />
+});
 
 const Hero = () => {
   return (
@@ -10,10 +20,6 @@ const Hero = () => {
       
       <section className="h-[50vh] sm:h-screen w-full flex flex-col relative" id="home">
         <div className="w-full mx-auto flex flex-col sm:mt-36 mt-20 c-space gap-3 relative z-10">
-          <p className="text-xl font-medium text-white text-center hero_tag text-gray_gradient md:text-6xl drop-shadow-lg">
-            Hi, I am{' '}
-            <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">Sarang</span>
-          </p>
 
           <p className="hero_tag text-gray_gradient drop-shadow-lg">
             Final Year B. Tech CSE Student & <br />

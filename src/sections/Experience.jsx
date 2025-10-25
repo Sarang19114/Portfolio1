@@ -1,12 +1,13 @@
+'use client';
+
 import React, { useEffect, useRef } from "react";
-import { expCards } from "../constants";
 import GlowCard from "../components/GlowCard";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const ExperienceSection = () => {
+const ExperienceSection = ({ experiences = [] }) => {
   const timelineLineRef = useRef(null);
   const sectionRef = useRef(null);
 
@@ -94,13 +95,17 @@ const ExperienceSection = () => {
       className="w-full md:mt-40 mt-20 section-padding xl:px-0"
     >
       <div className="w-full h-full md:px-20 px-5">
-        <p className="head-text text-white">Professional Work Experience</p>
+        <p className="sm:text-4xl text-3xl font-semibold relative z-10">
+          <span className="bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+            Professional Work Experience
+          </span>
+        </p>
 
         <div className="mt-32 relative">
           <div className="relative z-50 flex flex-col gap-40 md:gap-48 xl:gap-32">
-            {expCards.map((card, index) => (
-              <div className="exp-card-wrapper w-full relative" key={card.title} style={{ zIndex: expCards.length - index }}>
-                <div className="w-full xl:w-2/6 timeline-card mb-16 xl:mb-0 relative" style={{ zIndex: expCards.length - index + 10 }}>
+            {experiences.map((card, index) => (
+              <div className="exp-card-wrapper w-full relative" key={card.title} style={{ zIndex: experiences.length - index }}>
+                <div className="w-full xl:w-2/6 timeline-card mb-16 xl:mb-0 relative" style={{ zIndex: experiences.length - index + 10 }}>
                   <GlowCard card={card} index={index}>
                     <div className="flex flex-col items-start gap-3">
                       {/* Boss section with hover effects */}

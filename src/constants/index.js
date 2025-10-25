@@ -27,7 +27,7 @@ export const navLinks = [
   {
     id: 6,
     name: 'Resume',
-    href: 'assets/Sarang-Rastogi-Resume.pdf',
+    href: 'https://sarang19114.github.io/WebResume',
     target: '_blank',
   },
 ];

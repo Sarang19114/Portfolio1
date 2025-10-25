@@ -1,16 +1,11 @@
+'use client';
+
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { Suspense, useState } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { Center, OrbitControls } from '@react-three/drei';
+import { useState } from 'react';
 
-import { myProjects } from '../constants/index.js';
-import CanvasLoader from '../components/Loading.jsx';
-import DemoComputer from '../components/DemoComputer.jsx';
-
-const projectCount = myProjects.length;
-
-const Projects = () => {
+const Projects = ({ projects = [] }) => {
+  const projectCount = projects.length;
   const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
 
   const handleNavigation = (direction) => {
@@ -27,73 +22,154 @@ const Projects = () => {
     gsap.fromTo(`.animatedText`, { opacity: 0 }, { opacity: 1, duration: 1, stagger: 0.2, ease: 'power2.inOut' });
   }, [selectedProjectIndex]);
 
-  const currentProject = myProjects[selectedProjectIndex];
+  const currentProject = projects[selectedProjectIndex];
 
   return (
     <section className="c-space my-20" id="work">
-      <p className="head-text">My Selected Work</p>
+      <p className="sm:text-4xl text-3xl font-semibold relative z-10">
+        <span className="bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+          My Projects
+        </span>
+      </p>
 
-      <div className="grid lg:grid-cols-2 grid-cols-1 mt-12 gap-5 w-full">
-        <div className="flex flex-col gap-5 relative sm:p-10 py-10 px-5 shadow-2xl shadow-black-200 bg-black-200/90 backdrop-blur-md rounded-lg border border-black-300/50">
-          <div className="absolute top-0 right-0">
-            <img src={currentProject.spotlight} alt="spotlight" className="w-full h-96 object-cover rounded-xl" />
+      {/* Main project card */}
+      <div className="relative border border-black-300 bg-black-200/90 backdrop-blur-md rounded-lg shadow-lg shadow-black/50 mt-12">
+        {/* Top bar */}
+        <div className="border-b border-black-300 px-6 py-3 flex items-center justify-between">
+          <span className="text-sm text-white/80 font-mono">
+            PROJECT [{String(selectedProjectIndex + 1).padStart(2, '0')}/{String(projectCount).padStart(2, '0')}]
+          </span>
+          <div className="flex gap-4">
+            <button
+              onClick={() => handleNavigation('previous')}
+              className="px-4 py-1 border border-black-300 hover:border-white/40 hover:bg-white/5 transition-all duration-200 flex items-center gap-2">
+              <span className="text-white/60">&lt;</span>
+              <span className="text-xs text-white/60 font-mono">PREV</span>
+            </button>
+            <button
+              onClick={() => handleNavigation('next')}
+              className="px-4 py-1 border border-black-300 hover:border-white/40 hover:bg-white/5 transition-all duration-200 flex items-center gap-2">
+              <span className="text-xs text-white/60 font-mono">NEXT</span>
+              <span className="text-white/60">&gt;</span>
+            </button>
           </div>
+        </div>
 
-          <div className="p-3 backdrop-filter backdrop-blur-3xl w-fit rounded-lg" style={currentProject.logoStyle}>
-            <img className="w-10 h-10 shadow-sm" src={currentProject.logo} alt="logo" />
-          </div>
-
-          <div className="flex flex-col gap-5 text-white-600 my-5">
-            <p className="text-white text-2xl font-semibold animatedText">{currentProject.title}</p>
-
-            <p className="animatedText">{currentProject.desc}</p>
-            <p className="animatedText">{currentProject.subdesc}</p>
-          </div>
-
-          <div className="flex items-center justify-between flex-wrap gap-5">
-            <div className="flex items-center gap-3">
-              {currentProject.tags.map((tag, index) => (
-                <div key={index} className="tech-logo">
-                  <img src={tag.path} alt={tag.name} />
+        {/* Content grid */}
+        <div className="grid lg:grid-cols-2 grid-cols-1">
+          {/* Left side - Project details */}
+          <div className="p-8 flex flex-col border-r border-black-300">
+            {/* Project header */}
+            <div className="mb-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 border border-black-300 bg-black-200" style={currentProject.logoStyle}>
+                  <img src={currentProject.logo} alt="logo" className="w-8 h-8" />
                 </div>
-              ))}
+                <div className="flex-1">
+                  <span className="text-xs text-white/40 font-mono block mb-1">
+                    PROJECT_ID: {String(selectedProjectIndex + 1).padStart(4, '0')}
+                  </span>
+                  <h3 className="text-xl text-white font-semibold animatedText leading-tight">
+                    {currentProject.title}
+                  </h3>
+                </div>
+              </div>
+              <div className="h-px bg-white/20 mb-4"></div>
             </div>
 
-            <a
-              className="flex items-center gap-2 cursor-pointer text-white-600"
-              href={currentProject.href}
-              target="_blank"
-              rel="noreferrer">
-              <p>Check Live Site</p>
-              <img src="/assets/arrow-up.png" alt="arrow" className="w-3 h-3" />
-            </a>
+            {/* Description section */}
+            <div className="mb-6 flex-grow">
+              <span className="text-xs text-white/60 font-mono mb-3 block">DESCRIPTION:</span>
+              <p className="text-white/80 text-sm leading-relaxed mb-4 animatedText">
+                {currentProject.desc}
+              </p>
+              <p className="text-white/60 text-sm leading-relaxed animatedText">
+                {currentProject.subdesc}
+              </p>
+            </div>
+
+            {/* Tech stack */}
+            <div className="mb-6">
+              <span className="text-xs text-white/60 font-mono mb-3 block">TECH_STACK:</span>
+              <div className="flex flex-wrap gap-2">
+                {currentProject.tags.map((tag) => (
+                  <div
+                    key={tag.id}
+                    className="px-3 py-1 border border-black-300 bg-black-200 hover:bg-black-300 transition-colors duration-200 flex items-center gap-2">
+                    <img src={tag.path} alt={tag.name} className="w-4 h-4" />
+                    <span className="text-xs text-white/80 font-mono">{tag.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Action buttons */}
+            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-black-300">
+              <a
+                href={currentProject.href}
+                target="_blank"
+                rel="noreferrer"
+                className="px-4 py-3 border border-black-300 hover:border-white/40 hover:bg-black-300 transition-all duration-200 text-center">
+                <span className="text-sm text-white/80 font-mono">VIEW LIVE</span>
+              </a>
+              <a
+                href={currentProject.href}
+                target="_blank"
+                rel="noreferrer"
+                className="px-4 py-3 border border-black-300 hover:border-white/40 hover:bg-black-300 transition-all duration-200 text-center">
+                <span className="text-sm text-white/80 font-mono">VIEW CODE</span>
+              </a>
+            </div>
           </div>
 
-          <div className="flex justify-between items-center mt-7">
-            <button className="arrow-btn" onClick={() => handleNavigation('previous')}>
-              <img src="/assets/left-arrow.png" alt="left arrow" />
-            </button>
-
-            <button className="arrow-btn" onClick={() => handleNavigation('next')}>
-              <img src="/assets/right-arrow.png" alt="right arrow" className="w-4 h-4" />
-            </button>
+          {/* Right side - Preview area */}
+          <div className="relative bg-black-200 min-h-[500px] flex items-center justify-center p-8">
+            {/* Preview placeholder with terminal aesthetic */}
+            <div className="w-full h-full flex flex-col items-center justify-center">
+              <div className="text-center mb-8">
+                <div className="text-6xl text-white/10 font-mono mb-4">[ ]</div>
+                <p className="text-white/40 font-mono text-sm">PROJECT PREVIEW</p>
+              </div>
+              
+              {/* Spotlight image as preview */}
+              {currentProject.spotlight && (
+                <div className="relative w-full max-w-md aspect-video">
+                  <img 
+                    src={currentProject.spotlight} 
+                    alt="project preview" 
+                    className="w-full h-full object-cover opacity-30 border border-black-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
-        <div className="border border-black-300 bg-black-200/90 backdrop-blur-md rounded-lg h-96 md:h-full shadow-lg shadow-black/50">
-          <Canvas>
-            <ambientLight intensity={Math.PI} />
-            <directionalLight position={[10, 10, 5]} />
-            <Center>
-              <Suspense fallback={<CanvasLoader />}>
-                <group scale={2} position={[0, -3, 0]} rotation={[0, -0.1, 0]}>
-                  <DemoComputer texture={currentProject.texture} />
-                </group>
-              </Suspense>
-            </Center>
-            <OrbitControls maxPolarAngle={Math.PI / 2} enableZoom={false} />
-          </Canvas>
+        {/* Bottom status bar */}
+        <div className="border-t border-black-300 px-6 py-2 flex items-center justify-between bg-black-200">
+          <span className="text-xs text-white/40 font-mono">
+            STATUS: DEPLOYED | UPTIME: 99.9%
+          </span>
+          <span className="text-xs text-white/40 font-mono">
+            LAST_UPDATED: {new Date().getFullYear()}
+          </span>
         </div>
+      </div>
+
+      {/* Project counter dots */}
+      <div className="flex justify-center gap-2 mt-8">
+        {projects.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setSelectedProjectIndex(index)}
+            className={`w-2 h-2 transition-all duration-300 ${
+              index === selectedProjectIndex
+                ? 'bg-white/80 w-8'
+                : 'bg-white/20 hover:bg-white/40'
+            }`}
+          />
+        ))}
       </div>
     </section>
   );

@@ -1,3 +1,5 @@
+'use client';
+
 import emailjs from '@emailjs/browser';
 import { useRef, useState } from 'react';
 
@@ -128,19 +130,19 @@ const Contact = () => {
         {/* Resume & Image Section */}
         <div className="flex-1 flex flex-col items-center justify-center gap-10 md:gap-20">
 
-        <div className="w-full max-w-lg h-[500px] mt-4 border-2 border-white rounded-xl overflow-hidden shadow-lg">
+        <div className="w-full max-w-2xl h-[600px] mt-4 border-2 border-white rounded-xl overflow-hidden shadow-lg">
             <iframe
-              src="/assets//Sarang-Rastogi-Resume.pdf"
+              src="https://sarang19114.github.io/WebResume"
               title="Resume Viewer"
               className="w-full h-full"
             />
           </div>
           
           <a
-            href="/assets//Sarang-Rastogi-Resume.pdf"
+            href="https://sarang19114.github.io/WebResume"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full max-w-lg bg-black-200 text-white-800 text-center py-4 rounded-xl text-lg font-semibold tracking-wide hover:opacity-90 transition-opacity shadow-xl shadow-black-500"
+            className="w-full max-w-2xl bg-black-200 text-white-800 text-center py-4 rounded-xl text-lg font-semibold tracking-wide hover:opacity-90 transition-opacity shadow-xl shadow-black-500"
           >
             VIEW MY RESUME
           </a>

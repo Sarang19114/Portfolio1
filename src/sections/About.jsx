@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useRef, useEffect } from 'react';
 import Globe from 'react-globe.gl';
 import GitHubCalendar from 'react-github-calendar';
@@ -31,7 +33,7 @@ const About = () => {
             <img src="assets/me.png" alt="grid-1" className="w-full sm:h-[276px] h-fit object-contain" />
 
             <div>
-              <p className="grid-headtext">Hi, I'm Sarang Rastogi</p>
+              <p className="grid-headtext">Hi, I&apos;m Sarang Rastogi</p>
               <p className="grid-subtext">
                 I specialize in building dynamic, responsive websites with expertise in both frontend and backend development, delivering seamless user experiences.
               </p>
@@ -109,7 +111,7 @@ const About = () => {
               />
             </div>
             <div>
-              <p className="grid-headtext">I'm very flexible with time zone communications & locations</p>
+              <p className="grid-headtext">I&apos;m very flexible with time zone communications & locations</p>
               <p className="grid-subtext">I&apos;m based in Noida, India and open to remote work worldwide.</p>
               <a href="#contact">
                 <Button name="Contact Me" isBeam containerClass="w-full mt-10" />
@@ -125,7 +127,7 @@ const About = () => {
             <div>
               <p className="grid-headtext">My Passion for Coding</p>
               <p className="grid-subtext">
-                I thrive on solving challenges and bringing ideas to life through code. For me, programming is more than a career, it&apos;s a deeply fulfilling pursuit. I'm passionate about exploring emerging technologies, constantly learning, and honing my craft to create impactful solutions.
+                I thrive on solving challenges and bringing ideas to life through code. For me, programming is more than a career, it&apos;s a deeply fulfilling pursuit. I&apos;m passionate about exploring emerging technologies, constantly learning, and honing my craft to create impactful solutions.
               </p>
             </div>
           </div>
@@ -135,7 +137,7 @@ const About = () => {
           <div className="grid-container">
             <div className="w-full h-full flex flex-col items-center justify-center text-center space-y-4">
               <p className="grid-headtext">
-                My GitHub Contributions (Past Month)
+                My GitHub Contributions
               </p>
               <GitHubCalendar
                 username="Sarang19114"

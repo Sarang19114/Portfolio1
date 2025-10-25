@@ -39,7 +39,7 @@ section {
   width: 100dvw;
 }
 
-@theme {
+:root {
   --font-sans: "Mona Sans", sans-serif;
   --color-white: #ffffff;
   --color-black-50: #1c1c21;

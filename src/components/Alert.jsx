@@ -1,3 +1,4 @@
+// Pure presentational component - no client-side logic needed
 const Alert = ({ type, text }) => {
   return (
     <div className="fixed bottom-5 right-5 flex justify-center items-center z-50">

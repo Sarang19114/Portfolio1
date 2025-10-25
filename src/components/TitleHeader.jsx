@@ -1,3 +1,4 @@
+// Pure presentational component - no client-side logic needed
 const TitleHeader = ({title , sub}) => {
   return (
     <div  className='flex flex-col items-center gap-5'>

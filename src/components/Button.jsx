@@ -1,3 +1,4 @@
+// Pure presentational component - no client-side logic needed
 const Button = ({ name, isBeam = false, containerClass }) => {
   return (
     <button className={`btn ${containerClass}`}>
