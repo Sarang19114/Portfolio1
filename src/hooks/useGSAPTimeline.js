@@ -31,6 +31,16 @@ export function useGSAPTimeline(createTimeline, deps = [], options = {}) {
 
   const timelineRef = useRef(null);
   const isInitializedRef = useRef(false);
+  
+  // Store createTimeline in ref to avoid re-running effect when it changes
+  const createTimelineRef = useRef(createTimeline);
+  
+  useEffect(() => {
+    createTimelineRef.current = createTimeline;
+  }, [createTimeline]);
+
+  // Store deps as a string to avoid spread element warning
+  const depsString = JSON.stringify(deps);
 
   useEffect(() => {
     // Only create timeline when in view
@@ -39,7 +49,7 @@ export function useGSAPTimeline(createTimeline, deps = [], options = {}) {
       const timeoutId = setTimeout(() => {
         if (typeof window !== 'undefined' && window.gsap) {
           try {
-            const timeline = createTimeline(window.gsap);
+            const timeline = createTimelineRef.current(window.gsap);
             timelineRef.current = timeline;
             isInitializedRef.current = true;
           } catch (error) {
@@ -60,7 +70,8 @@ export function useGSAPTimeline(createTimeline, deps = [], options = {}) {
     if (isInView && timelineRef.current && isInitializedRef.current) {
       timelineRef.current.play();
     }
-  }, [isInView, ...deps]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isInView, depsString]);
 
   // Cleanup on unmount
   useEffect(() => {
