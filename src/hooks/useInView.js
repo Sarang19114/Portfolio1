@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 /**
  * Hook to track if an element is in the viewport
@@ -25,8 +25,12 @@ export function useInView(options = {}) {
   const [isInView, setIsInView] = useState(false);
   const [hasBeenInView, setHasBeenInView] = useState(false);
 
-  // Memoize callback to prevent unnecessary re-renders
-  const stableCallback = useCallback(callback || (() => {}), [callback]);
+  // Store callback in ref to avoid re-running effect when callback changes
+  const callbackRef = useRef(callback);
+  
+  useEffect(() => {
+    callbackRef.current = callback;
+  }, [callback]);
 
   useEffect(() => {
     const element = ref.current;
@@ -49,8 +53,8 @@ export function useInView(options = {}) {
         }
 
         // Call callback if provided
-        if (callback) {
-          stableCallback(inView);
+        if (callbackRef.current) {
+          callbackRef.current(inView);
         }
 
         // If triggerOnce, disconnect after first view
@@ -69,7 +73,7 @@ export function useInView(options = {}) {
     return () => {
       observer.disconnect();
     };
-  }, [rootMargin, threshold, triggerOnce, hasBeenInView, stableCallback, callback]);
+  }, [rootMargin, threshold, triggerOnce, hasBeenInView]);
 
   return {
     ref,

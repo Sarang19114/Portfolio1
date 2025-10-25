@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { navLinks } from '../../lib/portfolioData';
 
 const NavItems = ({ onClick = () => {} }) => (
@@ -34,7 +35,7 @@ const Navbar = () => {
             onClick={toggleMenu}
             className="text-neutral-400 hover:text-white focus:outline-none sm:hidden flex"
             aria-label="Toggle menu">
-            <img src={isOpen ? 'assets/close.svg' : 'assets/menu.svg'} alt="toggle" className="w-6 h-6" />
+            <Image src={isOpen ? '/assets/close.svg' : '/assets/menu.svg'} alt="toggle" width={24} height={24} className="w-6 h-6" />
           </button>
 
           <nav className="sm:flex hidden">

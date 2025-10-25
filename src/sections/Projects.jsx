@@ -3,6 +3,7 @@
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { useState } from 'react';
+import Image from 'next/image';
 
 const Projects = ({ projects = [] }) => {
   const projectCount = projects.length;
@@ -63,7 +64,7 @@ const Projects = ({ projects = [] }) => {
             <div className="mb-6">
               <div className="flex items-center gap-3 mb-4">
                 <div className="p-2 border border-black-300 bg-black-200" style={currentProject.logoStyle}>
-                  <img src={currentProject.logo} alt="logo" className="w-8 h-8" />
+                  <Image src={currentProject.logo} alt="logo" width={32} height={32} className="w-8 h-8" />
                 </div>
                 <div className="flex-1">
                   <span className="text-xs text-white/40 font-mono block mb-1">
@@ -96,7 +97,7 @@ const Projects = ({ projects = [] }) => {
                   <div
                     key={tag.id}
                     className="px-3 py-1 border border-black-300 bg-black-200 hover:bg-black-300 transition-colors duration-200 flex items-center gap-2">
-                    <img src={tag.path} alt={tag.name} className="w-4 h-4" />
+                    <Image src={tag.path} alt={tag.name} width={16} height={16} className="w-4 h-4" />
                     <span className="text-xs text-white/80 font-mono">{tag.name}</span>
                   </div>
                 ))}
@@ -134,9 +135,11 @@ const Projects = ({ projects = [] }) => {
               {/* Spotlight image as preview */}
               {currentProject.spotlight && (
                 <div className="relative w-full max-w-md aspect-video">
-                  <img 
+                  <Image 
                     src={currentProject.spotlight} 
                     alt="project preview" 
+                    width={800}
+                    height={450}
                     className="w-full h-full object-cover opacity-30 border border-black-300"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
