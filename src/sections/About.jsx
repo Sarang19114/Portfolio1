@@ -31,7 +31,7 @@ const About = () => {
       <div className="grid xl:grid-cols-3 xl:grid-rows-6 md:grid-cols-2 grid-cols-1 gap-5 h-full">
         <div className="col-span-1 xl:row-span-3">
           <div className="grid-container">
-            <Image src="/assets/me.png" alt="grid-1" width={500} height={276} className="w-full sm:h-[276px] h-fit object-contain" />
+            <Image src="/assets/sarang.png" alt="grid-1" width={500} height={276} className="w-full sm:h-[276px] h-fit object-contain" />
 
             <div>
               <p className="grid-headtext">Hi, I&apos;m Sarang Rastogi</p>
@@ -83,6 +83,10 @@ const About = () => {
 
 
 
+                <li>
+                  Developed and co-authored a published <strong>Research Paper</strong> on <strong>Peer Matchmaking</strong> for connected care and patient recovery insights.
+                </li>
+
                 <li>Developed impactful projects like:
                   <ul className="list-disc pl-5 mt-1">
                     <li>🔤 Sign Language Recognition using ML</li>
@@ -126,9 +130,9 @@ const About = () => {
             <Image src="/assets/grid3.png" alt="grid-3" width={800} height={266} className="w-full sm:h-[266px] h-fit object-contain" />
 
             <div>
-              <p className="grid-headtext">My Passion for Coding</p>
+              <p className="grid-headtext">My Passion for Tech & Gaming</p>
               <p className="grid-subtext">
-                I thrive on solving challenges and bringing ideas to life through code. For me, programming is more than a career, it&apos;s a deeply fulfilling pursuit. I&apos;m passionate about exploring emerging technologies, constantly learning, and honing my craft to create impactful solutions.
+                I thrive on solving challenges and bringing ideas to life through code. Whenever I&apos;m not at my desk, I&apos;m likely in a competitive Valorant match or exploring new games. This passion for gaming often fuels my interest in high-performance software and immersive digital experiences.
               </p>
             </div>
           </div>

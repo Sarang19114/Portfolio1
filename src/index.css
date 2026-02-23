@@ -21,9 +21,12 @@ body {
   color: white;
   scroll-behavior: smooth;
   font-family: "Mona Sans", sans-serif;
-  scrollbar-width: none;       /* Firefox */
-  -ms-overflow-style: none;    /* IE 10+ */
-  overflow: auto;              /* Ensure scrolling works */
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE 10+ */
+  overflow: auto;
+  /* Ensure scrolling works */
   height: 100%;
 }
 
@@ -32,7 +35,8 @@ body {
 }
 
 body::-webkit-scrollbar {
-  display: none;               /* Chrome, Safari */
+  display: none;
+  /* Chrome, Safari */
 }
 
 section {
@@ -60,6 +64,7 @@ section {
   .flex-center {
     @apply flex justify-center items-center;
   }
+
   .flex-col-center {
     @apply flex flex-col justify-center items-center;
   }
@@ -77,11 +82,15 @@ section {
   }
 
   .nav-li {
-    @apply text-neutral-400 hover:text-white font-generalsans max-sm:hover:bg-black-500 max-sm:w-full max-sm:rounded-md py-2 max-sm:px-5;
+    @apply text-white/70 hover:text-white font-generalsans transition-colors py-2 max-sm:px-5 max-sm:w-full;
+  }
+
+  .nav-li-resume {
+    @apply text-white font-generalsans py-2 px-5 rounded-xl transition-all active:scale-95 bg-blue-600 hover:bg-blue-500 shadow-[0_0_15px_rgba(37,99,235,0.4)] max-sm:w-full text-center;
   }
 
   .nav-li_a {
-    @apply text-lg md:text-base hover:text-white transition-colors;
+    @apply text-lg md:text-base transition-colors block w-full;
   }
 
   .nav-sidebar {
@@ -94,7 +103,7 @@ section {
 
   /* button component */
   .btn {
-    @apply flex gap-4 items-center justify-center cursor-pointer p-3 rounded-md bg-black-300  transition-all active:scale-95 text-white mx-auto;
+    @apply flex gap-4 items-center justify-center cursor-pointer p-3 rounded-md bg-black-300 transition-all active:scale-95 text-white mx-auto;
   }
 
   .btn-ping {
@@ -163,7 +172,7 @@ section {
   }
 
   .work-content_container {
-    @apply grid grid-cols-[auto_1fr] items-start gap-5  transition-all ease-in-out duration-500 cursor-pointer hover:bg-black-300 rounded-lg sm:px-5 px-2.5;
+    @apply grid grid-cols-[auto_1fr] items-start gap-5 transition-all ease-in-out duration-500 cursor-pointer hover:bg-black-300 rounded-lg sm:px-5 px-2.5;
   }
 
   .work-content_logo {
@@ -249,9 +258,11 @@ section {
 
   .hero-text {
     @apply flex flex-col justify-center md:text-[60px] text-[30px] font-semibold relative z-10 pointer-events-none;
+
     img {
       @apply size-8 md:size-10 object-contain;
     }
+
     .slide {
       @apply absolute pt-0 px-2 md:px-5 py-[30px] h-[48px] md:h-[78px] md:translate-y-1 translate-y-0 overflow-hidden;
     }
@@ -373,19 +384,15 @@ section {
     @apply flex justify-center items-center px-4 py-4 rounded-lg bg-black-200 relative cursor-pointer overflow-hidden;
 
     .bg-circle {
-      @apply absolute -right-10 origin-center top-1/2 -translate-y-1/2 
-        w-[120%] h-[120%] group-hover:size-10 group-hover:right-10
-        rounded-full bg-white transition-all duration-500;
+      @apply absolute -right-10 origin-center top-1/2 -translate-y-1/2 w-[120%] h-[120%] group-hover:size-10 group-hover:right-10 rounded-full bg-white transition-all duration-500;
     }
 
     .text {
-      @apply uppercase md:text-lg text-black transition-all duration-500
-        group-hover:text-white group-hover:text-center group-hover:-translate-x-5 xl:translate-x-0 -translate-x-5;
+      @apply uppercase md:text-lg text-black transition-all duration-500 group-hover:text-white group-hover:text-center group-hover:-translate-x-5 xl:translate-x-0 -translate-x-5;
     }
 
     .arrow-wrapper {
-      @apply group-hover:bg-white size-10 rounded-full absolute right-10 top-1/2 
-        -translate-y-1/2 flex justify-center items-center overflow-hidden;
+      @apply group-hover:bg-white size-10 rounded-full absolute right-10 top-1/2 -translate-y-1/2 flex justify-center items-center overflow-hidden;
 
       img {
         @apply size-5 xl:-translate-y-32 translate-y-0 animate-bounce group-hover:translate-y-0 transition-all duration-500;
@@ -500,37 +507,42 @@ section {
 }
 
 .arrow-gradient {
-  background-image: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0.1) 10%,
-    rgba(255, 255, 255, 0.000025) 50%,
-    rgba(255, 255, 255, 0.000025) 50%,
-    rgba(255, 255, 255, 0.025) 100%
-  );
+  background-image: linear-gradient(to right,
+      rgba(255, 255, 255, 0.1) 10%,
+      rgba(255, 255, 255, 0.000025) 50%,
+      rgba(255, 255, 255, 0.000025) 50%,
+      rgba(255, 255, 255, 0.025) 100%);
 }
 
 @keyframes wave-animation {
   0% {
     transform: rotate(0deg);
   }
+
   15% {
     transform: rotate(14deg);
   }
+
   30% {
     transform: rotate(-8deg);
   }
+
   40% {
     transform: rotate(14deg);
   }
+
   50% {
     transform: rotate(-4deg);
   }
+
   60% {
     transform: rotate(10deg);
   }
+
   70% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(0deg);
   }
@@ -540,6 +552,7 @@ section {
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -571,24 +584,31 @@ section {
   0% {
     transform: translateY(0.5%);
   }
+
   12.5% {
     transform: translateY(-12.5%);
   }
+
   25% {
     transform: translateY(-25%);
   }
+
   37.5% {
     transform: translateY(-37.5%);
   }
+
   50% {
     transform: translateY(-50%);
   }
+
   62.5% {
     transform: translateY(-62.5%);
   }
+
   75% {
     transform: translateY(-75%);
   }
+
   87.5% {
     transform: translateY(-87.5%);
   }
@@ -599,34 +619,28 @@ section {
 /* Gradients and Effects */
 .gradient-line {
   width: 2px;
-  background: linear-gradient(
-    0deg,
-    rgba(69, 222, 196, 0) 0%,
-    #62e0ff 25%,
-    #52aeff 37.51%,
-    #fd5c79 62.83%,
-    #6d45ce 92.91%
-  );
+  background: linear-gradient(0deg,
+      rgba(69, 222, 196, 0) 0%,
+      #62e0ff 25%,
+      #52aeff 37.51%,
+      #fd5c79 62.83%,
+      #6d45ce 92.91%);
   box-shadow: 0 0 10px rgba(98, 224, 255, 0.3);
 }
 
 .gradient-edge:nth-of-type(1) {
   left: 0;
   background: rgb(0, 0, 0);
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(255, 255, 255, 0) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(255, 255, 255, 0) 100%);
 }
 
 .gradient-edge:nth-of-type(2) {
   right: 0;
-  background: linear-gradient(
-    -90deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(255, 255, 255, 0) 100%
-  );
+  background: linear-gradient(-90deg,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(255, 255, 255, 0) 100%);
 }
 
 /* marquee */
@@ -654,10 +668,12 @@ section {
   0% {
     left: 0;
   }
+
   100% {
     left: -100%;
   }
 }
+
 /* marquee end */
 
 /* Card Effects */
@@ -682,12 +698,10 @@ section {
   background: var(--gradient);
   background-attachment: fixed;
   mask: linear-gradient(#0000, #0000),
-    conic-gradient(
-      from calc((var(--start) - 15) * 1deg),
+    conic-gradient(from calc((var(--start) - 15) * 1deg),
       #ffffff1f 0deg,
       white,
-      #ffffff00 100deg
-    );
+      #ffffff00 100deg);
   mask-composite: intersect;
   mask-clip: padding-box, border-box;
   opacity: 0;

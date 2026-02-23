@@ -19,14 +19,7 @@ const skillsData = [
     description: "Building dynamic, responsive, and modern user interfaces with React and Tailwind CSS for a seamless user experience.",
     techStack: ["React", "JavaScript", "Tailwind CSS", "Vite", "Next.JS"],
   },
-  {
-    id: "LOW_LEVEL_DEV",
-    status: "ONGOING",
-    title: "Systems & OS Development",
-    completion: 85,
-    description: "Developing a hobby OS with C/C++ and Assembly, implementing core features like memory management (Paging, Bitmaps) and GDT configuration.",
-    techStack: ["C/C++", "x86 Assembly", "Memory Management", "GDT"],
-  },
+
   {
     id: "CLOUD_OPS",
     status: "ACTIVE",
@@ -46,17 +39,6 @@ const skillsData = [
 ];
 
 const SkillCard = ({ skill, index }) => {
-  const progressBarRef = useRef(null);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (progressBarRef.current) {
-        progressBarRef.current.style.width = `${skill.completion}%`;
-      }
-    }, 150);
-
-    return () => clearTimeout(timer);
-  }, [skill.completion]);
 
   return (
     <div className="flex-shrink-0 w-80 h-96 relative group cursor-pointer select-none">
@@ -66,13 +48,13 @@ const SkillCard = ({ skill, index }) => {
           <svg className="w-full h-full" width="100%" height="100%">
             <defs>
               <pattern id={`grid-${index}`} width="20" height="20" patternUnits="userSpaceOnUse">
-                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5"/>
+                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
               </pattern>
             </defs>
             <rect width="100%" height="100%" fill={`url(#grid-${index})`}></rect>
           </svg>
         </div>
-        
+
         {/* Corner brackets */}
         <div className="absolute top-0 left-0 w-8 h-8">
           <div className="absolute top-1 left-1 w-6 h-1 bg-white/60"></div>
@@ -102,14 +84,7 @@ const SkillCard = ({ skill, index }) => {
               </div>
             </div>
             <h3 className="text-white text-lg font-semibold mb-1">{skill.title}</h3>
-            <div className="w-full bg-white/10 h-1 rounded-full overflow-hidden">
-              <div
-                ref={progressBarRef}
-                className="h-full bg-gradient-to-r from-white/60 to-white/90 rounded-full origin-left transition-all duration-1000 ease-out"
-                style={{ width: '0%' }}
-              ></div>
-            </div>
-            <span className="text-xs text-white/50 font-mono mt-1 block">{skill.completion}% COMPLETION</span>
+
           </div>
           <p className="text-white/80 text-sm leading-relaxed mb-6 flex-grow">{skill.description}</p>
           <div className="space-y-3">
@@ -122,7 +97,7 @@ const SkillCard = ({ skill, index }) => {
           </div>
           <div className="absolute bottom-6 left-6 right-6 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
         </div>
-        
+
         {/* Scanline effect */}
         <div className="scanline absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent h-8 opacity-0 group-hover:opacity-100"></div>
       </div>
@@ -132,7 +107,7 @@ const SkillCard = ({ skill, index }) => {
 
 export default function TechnicalExpertise() {
   const marqueeRef = useRef(null);
-  
+
   // Double the skills array for seamless infinite scroll
   const allSkills = [...skillsData, ...skillsData];
 
@@ -146,16 +121,16 @@ export default function TechnicalExpertise() {
 
     const animate = () => {
       scrollPosition += scrollSpeed;
-      
+
       // Reset position for infinite loop
       // Each card is 320px (w-80) + 24px gap = 344px
       const cardWidth = 344;
       const resetPoint = skillsData.length * cardWidth;
-      
+
       if (scrollPosition >= resetPoint) {
         scrollPosition = 0;
       }
-      
+
       marquee.style.transform = `translateX(-${scrollPosition}px)`;
       animationFrameId = requestAnimationFrame(animate);
     };
@@ -176,7 +151,7 @@ export default function TechnicalExpertise() {
           Technical Expertise
         </span>
       </p>
-      
+
       <div className="w-full relative mt-12">
         <div className="w-full py-8">
           <div className="overflow-hidden py-4">
@@ -187,12 +162,12 @@ export default function TechnicalExpertise() {
             </div>
           </div>
         </div>
-        
+
         {/* Gradient fade on edges */}
         <div className="absolute top-0 left-0 bottom-0 w-32 bg-gradient-to-r from-black to-transparent pointer-events-none z-10"></div>
         <div className="absolute top-0 right-0 bottom-0 w-32 bg-gradient-to-l from-black to-transparent pointer-events-none z-10"></div>
       </div>
-      
+
       <style jsx>{`
         @keyframes scanline {
           0% {
