@@ -52,64 +52,51 @@ const ExperienceSection = ({ experiences = [] }) => {
             </ul>
           </div>
 
-          {/* Boss Quote - AFTER responsibilities */}
+          {/* Boss Quote with inline attribution */}
           {card.review && (
-            <div className="mb-6 relative">
+            <div className="mb-2 relative">
               <div className="pl-4 border-l-2 border-blue-500/30">
-                <svg className="w-5 h-5 text-blue-500/40 mb-2" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.731-9.57 8.983-10.609l.998 2.151c-2.436.917-3.998 3.638-3.998 5.849h4v10h-9.983z" />
-                </svg>
+                {/* Quote icon + boss capsule on same row */}
+                <div className="flex items-center gap-3 mb-2">
+                  <svg className="w-5 h-5 text-blue-500/40 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.731-9.57 8.983-10.609l.998 2.151c-2.436.917-3.998 3.638-3.998 5.849h4v10h-9.983z" />
+                  </svg>
+                  {card.bosses && card.bosses.length > 0 && (
+                    <div className="flex flex-wrap gap-2">
+                      {card.bosses.map((boss, i) => (
+                        <a
+                          key={i}
+                          href={boss.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 group/boss bg-black-100 rounded-full pr-3 pl-1 py-1 border border-black-300/50 hover:border-blue-500/30 transition-all duration-300"
+                        >
+                          <div className="relative">
+                            <Image
+                              src={boss.photo}
+                              alt={boss.name}
+                              width={28}
+                              height={28}
+                              className="w-7 h-7 rounded-full object-cover grayscale group-hover/boss:grayscale-0 transition-all duration-300"
+                            />
+                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/boss:opacity-100 transition-opacity duration-300 bg-black/40 rounded-full">
+                              <svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h4V24h-4V8zm7.5 0h3.6v2.2h.05c.5-.9 1.75-1.85 3.6-1.85 3.85 0 4.55 2.45 4.55 5.65V24h-4v-7.9c0-1.9-.03-4.3-2.6-4.3s-3 2.05-3 4.15V24h-4V8z" />
+                              </svg>
+                            </div>
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="text-xs font-semibold text-white leading-tight">{boss.name}</span>
+                            <span className="text-[10px] text-white-500 leading-tight">{boss.position}</span>
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
                 <p className="text-sm md:text-[15px] text-white-600 leading-relaxed italic">
                   {card.review}
                 </p>
-              </div>
-            </div>
-          )}
-
-          {/* Boss / Colleague Section */}
-          {card.bosses && card.bosses.length > 0 && (
-            <div className="pt-5 border-t border-black-300/50">
-              <p className="text-xs text-white-500 mb-3 font-medium uppercase tracking-wider">
-                Worked with
-              </p>
-              <div className="flex flex-wrap gap-3">
-                {card.bosses.map((boss, i) => (
-                  <a
-                    key={i}
-                    href={boss.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 group/boss bg-black-100 rounded-full pr-4 pl-1 py-1 border border-black-300/50 hover:border-blue-500/30 transition-all duration-300"
-                  >
-                    <div className="relative">
-                      <Image
-                        src={boss.photo}
-                        alt={boss.name}
-                        width={36}
-                        height={36}
-                        className="w-8 h-8 md:w-9 md:h-9 rounded-full object-cover grayscale group-hover/boss:grayscale-0 transition-all duration-300"
-                      />
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/boss:opacity-100 transition-opacity duration-300 bg-black/40 rounded-full">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="w-3 h-3 text-white"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h4V24h-4V8zm7.5 0h3.6v2.2h.05c.5-.9 1.75-1.85 3.6-1.85 3.85 0 4.55 2.45 4.55 5.65V24h-4v-7.9c0-1.9-.03-4.3-2.6-4.3s-3 2.05-3 4.15V24h-4V8z" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="text-xs md:text-sm font-semibold text-white">
-                        {boss.name}
-                      </span>
-                      <span className="text-[10px] md:text-xs text-white-500">
-                        {boss.position}
-                      </span>
-                    </div>
-                  </a>
-                ))}
               </div>
             </div>
           )}

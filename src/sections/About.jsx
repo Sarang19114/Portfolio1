@@ -62,13 +62,13 @@ const About = () => {
                     className="text-blue-500 underline font-bold cursor-pointer ml-1 relative"
                   >
                     website
-                    <div className="absolute bottom-full left-0 z-30 hidden group-hover:block mb-3">
+                    <div className="absolute bottom-full left-0 z-50 hidden group-hover:block mb-3">
                       <div className="w-[400px] h-[250px] rounded-xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-500 via-purple-600 to-indigo-600 p-[2px]">
                         <div className="w-full h-full bg-black rounded-[10px] overflow-hidden">
                           <iframe
                             src="https://trigger-mind.vercel.app"
                             title="Trigger Mind Preview"
-                            className="w-full h-full"
+                            className="w-full h-full relative z-50"
                             style={{
                               border: 'none',
                               overflow: 'auto',

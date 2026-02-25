@@ -130,11 +130,12 @@ const Contact = () => {
         {/* Resume & Booking Section */}
         <div className="flex-1 flex flex-col items-center gap-6">
 
-          <div className="w-full h-[540px] mt-4 border-2 border-white/20 rounded-xl overflow-hidden shadow-2xl group">
+          <div className="w-full h-[540px] mt-4 border-2 border-white/20 rounded-xl overflow-hidden shadow-2xl group relative z-20">
             <iframe
               src="https://sarang19114.github.io/WebResume"
               title="Resume Viewer"
-              className="w-full h-full"
+              style={{ width: 'calc(100% + 20px)', height: 'calc(100% + 20px)', border: 'none' }}
+              className="relative z-20"
             />
           </div>
 

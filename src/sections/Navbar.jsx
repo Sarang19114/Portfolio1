@@ -11,7 +11,7 @@ const NavItems = ({ onClick = () => { }, activeSection = '' }) => (
         <li key={item.id} className={item.name === 'Resume' ? 'nav-li-resume' : 'nav-li'}>
           <a
             href={item.href}
-            className={`nav-li_a transition-all duration-300 ${isActive ? 'text-blue-400 font-bold drop-shadow-[0_0_8px_rgba(96,165,250,0.6)]' : ''}`}
+            className={`nav-li_a relative transition-all duration-300 ${isActive ? 'text-blue-400 font-bold drop-shadow-[0_0_8px_rgba(96,165,250,0.6)]' : ''}`}
             onClick={onClick}
             target={item.target}
           >
@@ -75,15 +75,61 @@ const Navbar = () => {
             <Image src={isOpen ? '/assets/close.svg' : '/assets/menu.svg'} alt="toggle" width={24} height={24} className="w-6 h-6" />
           </button>
 
-          <nav className="sm:flex hidden">
-            <NavItems activeSection={activeSection} />
-          </nav>
+          <div className="sm:flex hidden items-center gap-6">
+            <nav>
+              <NavItems activeSection={activeSection} />
+            </nav>
+            
+            {/* Social Icons */}
+            <div className="flex items-center gap-3 border-l border-white/10 pl-6">
+              <a
+                href="https://github.com/Sarang19114"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300 group"
+                aria-label="GitHub"
+              >
+                <Image src="/assets/github.svg" alt="GitHub" width={18} height={18} className="brightness-200 group-hover:scale-110 transition-transform" />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/sarang-rastogi-498948249/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300 group"
+                aria-label="LinkedIn"
+              >
+                <Image src="/assets/linkedin.svg" alt="LinkedIn" width={18} height={18} className="brightness-200 group-hover:scale-110 transition-transform" />
+              </a>
+            </div>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
-        <div className={`overflow-hidden transition-all duration-300 ease-in-out sm:hidden ${isOpen ? 'max-h-96 opacity-100 border-t border-white/5' : 'max-h-0 opacity-0'}`}>
+        <div className={`overflow-hidden transition-all duration-300 ease-in-out sm:hidden ${isOpen ? 'max-h-[500px] opacity-100 border-t border-white/5' : 'max-h-0 opacity-0'}`}>
           <nav className="p-6">
             <NavItems onClick={closeMenu} activeSection={activeSection} />
+            
+            {/* Social Icons - Mobile */}
+            <div className="flex items-center justify-center gap-4 mt-6 pt-6 border-t border-white/5">
+              <a
+                href="https://github.com/Sarang19114"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300 active:scale-90"
+                aria-label="GitHub"
+              >
+                <Image src="/assets/github.svg" alt="GitHub" width={20} height={20} className="brightness-200" />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/sarang-rastogi-498948249/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300 active:scale-90"
+                aria-label="LinkedIn"
+              >
+                <Image src="/assets/linkedin.svg" alt="LinkedIn" width={20} height={20} className="brightness-200" />
+              </a>
+            </div>
           </nav>
         </div>
       </div>
