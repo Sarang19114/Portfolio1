@@ -33,14 +33,16 @@ export const Timeline = ({ data }) => {
         const rect = containerRef.current.getBoundingClientRect();
         const windowHeight = window.innerHeight;
 
-        // Calculate scroll progress: 0 when top enters viewport, 1 when bottom reaches middle
-        const start = rect.top - windowHeight * 0.1;
-        const end = rect.bottom - windowHeight * 0.5;
+        // Beam starts only when user scrolls past the top of the section
+        // progress 0 = top of section hits bottom of viewport
+        // progress 1 = bottom of section is at center of viewport
+        const start = rect.top - windowHeight * 0.85;
+        const end = rect.bottom - windowHeight * 0.6;
         const progress = Math.min(Math.max((0 - start) / (end - start), 0), 1);
 
         const beamHeight = progress * height;
         beamRef.current.style.height = `${beamHeight}px`;
-        beamRef.current.style.opacity = progress > 0.02 ? "1" : "0";
+        beamRef.current.style.opacity = progress > 0.01 ? "1" : "0";
     }, [height]);
 
     useEffect(() => {
@@ -64,7 +66,7 @@ export const Timeline = ({ data }) => {
                                     className="h-4 w-4 rounded-full border border-blue-400/60 bg-blue-500/20"
                                     style={{
                                         boxShadow:
-                                            "0 0 8px rgba(98,224,255,0.6), 0 0 16px rgba(59,130,246,0.3)",
+                                            "0 0 8px rgba(147,197,253,0.6), 0 0 16px rgba(59,130,246,0.4)",
                                     }}
                                 />
                             </div>
@@ -106,9 +108,9 @@ export const Timeline = ({ data }) => {
                             opacity: 0,
                             transition: "opacity 0.3s ease",
                             background:
-                                "linear-gradient(180deg, #6d45ce 0%, #fd5c79 30%, #52aeff 60%, #62e0ff 100%)",
+                                "linear-gradient(180deg, #93c5fd 0%, #3b82f6 50%, #1d4ed8 100%)",
                             boxShadow:
-                                "0 0 6px #62e0ff, 0 0 15px rgba(98,224,255,0.5), 0 0 30px rgba(82,174,255,0.3), 0 0 50px rgba(109,69,206,0.2)",
+                                "0 0 6px #93c5fd, 0 0 15px rgba(59,130,246,0.6), 0 0 30px rgba(59,130,246,0.3), 0 0 50px rgba(29,78,216,0.2)",
                         }}
                     />
                 </div>
