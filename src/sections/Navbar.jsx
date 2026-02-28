@@ -36,7 +36,7 @@ const Navbar = () => {
   useEffect(() => {
     const observerOptions = {
       root: null,
-      rootMargin: '-20% 0px -70% 0px', // Adjust to trigger when section is in the upper part of viewport
+      rootMargin: '-25% 0px -65% 0px', // Slightly adjusted for better sensitivity
       threshold: 0,
     };
 
@@ -50,14 +50,21 @@ const Navbar = () => {
 
     const observer = new IntersectionObserver(handleIntersect, observerOptions);
 
-    // IDs to observe based on navLinks
-    const sectionIds = ['home', 'about', 'work', 'experience', 'contact'];
-    sectionIds.forEach((id) => {
-      const element = document.getElementById(id);
-      if (element) observer.observe(element);
-    });
+    // IDs to observe based on index.js wrappers
+    const sectionIds = ['home', 'about', 'work', 'experience', 'expertise', 'contact'];
 
-    return () => observer.disconnect();
+    // We use a small timeout to ensure initial rendering is complete
+    const timeoutId = setTimeout(() => {
+      sectionIds.forEach((id) => {
+        const element = document.getElementById(id);
+        if (element) observer.observe(element);
+      });
+    }, 500);
+
+    return () => {
+      clearTimeout(timeoutId);
+      observer.disconnect();
+    };
   }, []);
 
   return (
@@ -79,7 +86,7 @@ const Navbar = () => {
             <nav>
               <NavItems activeSection={activeSection} />
             </nav>
-            
+
             {/* Social Icons */}
             <div className="flex items-center gap-3 border-l border-white/10 pl-6">
               <a
@@ -105,29 +112,29 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Navigation */}
-        <div className={`overflow-hidden transition-all duration-300 ease-in-out sm:hidden ${isOpen ? 'max-h-[500px] opacity-100 border-t border-white/5' : 'max-h-0 opacity-0'}`}>
-          <nav className="p-6">
+        <div className={`transition-all duration-300 ease-in-out sm:hidden ${isOpen ? 'max-h-[85vh] opacity-100 border-t border-white/5 overflow-y-auto' : 'max-h-0 opacity-0 overflow-hidden'}`}>
+          <nav className="p-6 pb-8">
             <NavItems onClick={closeMenu} activeSection={activeSection} />
-            
+
             {/* Social Icons - Mobile */}
-            <div className="flex items-center justify-center gap-4 mt-6 pt-6 border-t border-white/5">
+            <div className="flex items-center justify-center gap-4 mt-8 pt-8 border-t border-white/5">
               <a
                 href="https://github.com/Sarang19114"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300 active:scale-90"
+                className="w-12 h-12 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300 active:scale-95"
                 aria-label="GitHub"
               >
-                <Image src="/assets/github.svg" alt="GitHub" width={20} height={20} className="brightness-200" />
+                <Image src="/assets/github.svg" alt="GitHub" width={22} height={22} className="brightness-200" />
               </a>
               <a
                 href="https://www.linkedin.com/in/sarang-rastogi-498948249/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300 active:scale-90"
+                className="w-12 h-12 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300 active:scale-95"
                 aria-label="LinkedIn"
               >
-                <Image src="/assets/linkedin.svg" alt="LinkedIn" width={20} height={20} className="brightness-200" />
+                <Image src="/assets/linkedin.svg" alt="LinkedIn" width={22} height={22} className="brightness-200" />
               </a>
             </div>
           </nav>

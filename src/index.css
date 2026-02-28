@@ -86,7 +86,8 @@ section {
   }
 
   .nav-li-resume {
-    @apply text-white font-generalsans py-2 px-5 rounded-xl transition-all active:scale-95 bg-blue-600 hover:bg-blue-500 shadow-[0_0_15px_rgba(37,99,235,0.4)] max-sm:w-full text-center;
+    @apply text-white font-generalsans py-2 px-5 rounded-xl transition-all active:scale-95 bg-blue-600 hover:bg-blue-500 max-sm:w-full text-center;
+    box-shadow: 0 0 15px rgba(37, 99, 235, 0.4);
   }
 
   .nav-li_a {
@@ -193,7 +194,7 @@ section {
   }
 
   .field-input {
-    @apply w-full bg-black-200 px-5 py-2 min-h-14 rounded-xl placeholder:text-white text-lg text-white focus:outline-none;
+    @apply w-full bg-black-200 px-5 py-2 min-h-14 rounded-xl placeholder:text-white-500 text-lg text-white focus:outline-none;
   }
 
   .field-btn {
@@ -722,4 +723,10 @@ section {
 
 .card:hover::before {
   opacity: 1;
+}
+
+/* Hide content while fullscreen project preview is open */
+.fullscreen-active header,
+.fullscreen-active main {
+  display: none !important;
 }

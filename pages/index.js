@@ -3,18 +3,24 @@ import dynamic from 'next/dynamic';
 import { navLinks, myProjects, workExperiences, expCards } from '../lib/portfolioData';
 import LazySection from '../lib/LazySection';
 
+// Sparkles background wrapper for sections (client-side only)
+const SectionSparkles = dynamic(() => import('../src/components/SectionSparkles'), {
+  ssr: false,
+  loading: () => null,
+});
+
 // Import server-side components normally (no 'use client')
 import Navbar from '../src/sections/Navbar';
 import Footer from '../src/sections/Footer';
 import LoadingScreen from '../src/components/LoadingScreen';
 
-// Hero is now server-rendered (text) with dynamic BlackHole
+// Hero is now server-rendered (text) with dynamic GLSLHills
 import Hero from '../src/sections/Hero';
 
 // Dynamic import for client-side heavy sections
 // ssr: false = don't render on server
 // These load only when user scrolls near them
-const About = dynamic(() => import('../src/sections/About'), { 
+const About = dynamic(() => import('../src/sections/About'), {
   ssr: false,
   loading: () => (
     <section className="c-space my-20" id="about">
@@ -28,7 +34,7 @@ const About = dynamic(() => import('../src/sections/About'), {
   )
 });
 
-const Projects = dynamic(() => import('../src/sections/Projects'), { 
+const Projects = dynamic(() => import('../src/sections/Projects'), {
   ssr: false,
   loading: () => (
     <section className="c-space my-20" id="work">
@@ -38,7 +44,7 @@ const Projects = dynamic(() => import('../src/sections/Projects'), {
   )
 });
 
-const ExperienceSection = dynamic(() => import('../src/sections/Experience'), { 
+const ExperienceSection = dynamic(() => import('../src/sections/Experience'), {
   ssr: false,
   loading: () => (
     <section className="c-space my-20" id="experience">
@@ -48,7 +54,7 @@ const ExperienceSection = dynamic(() => import('../src/sections/Experience'), {
   )
 });
 
-const TechnicalExpertise = dynamic(() => import('../src/sections/TechnicalExpertise'), { 
+const TechnicalExpertise = dynamic(() => import('../src/sections/TechnicalExpertise'), {
   ssr: false,
   loading: () => (
     <section className="c-space my-20" id="expertise">
@@ -67,7 +73,7 @@ const TechnicalExpertise = dynamic(() => import('../src/sections/TechnicalExpert
   )
 });
 
-const Contact = dynamic(() => import('../src/sections/Contact'), { 
+const Contact = dynamic(() => import('../src/sections/Contact'), {
   ssr: false,
   loading: () => (
     <section className="c-space my-20" id="contact">
@@ -92,27 +98,87 @@ export default function Home({ projects, experiences, experienceCards }) {
       <main className="mx-auto relative overflow-hidden">
         <Navbar />
         <Hero />
-        
-        <LazySection>
-          <About />
-        </LazySection>
-        
-        <LazySection>
-          <Projects projects={projects} />
-        </LazySection>
-        
-        <LazySection>
-          <ExperienceSection experiences={experienceCards} />
-        </LazySection>
-        
-        <LazySection>
-          <TechnicalExpertise />
-        </LazySection>
-        
-        <LazySection>
-          <Contact />
-        </LazySection>
-        
+
+        {/* About — soft blue sparkles */}
+        <div id="about">
+          <SectionSparkles
+            id="sparkles-about"
+            particleColor="#6B9FFF"
+            particleDensity={120}
+            minSize={0.4}
+            maxSize={1.0}
+            speed={2}
+          >
+            <LazySection>
+              <About />
+            </LazySection>
+          </SectionSparkles>
+        </div>
+
+        {/* Projects — cool cyan sparkles */}
+        <div id="work">
+          <SectionSparkles
+            id="sparkles-projects"
+            particleColor="#5EEAD4"
+            particleDensity={100}
+            minSize={0.3}
+            maxSize={1.2}
+            speed={1.5}
+          >
+            <LazySection>
+              <Projects projects={projects} />
+            </LazySection>
+          </SectionSparkles>
+        </div>
+
+        {/* Experience — warm amber sparkles */}
+        <div id="experience">
+          <SectionSparkles
+            id="sparkles-experience"
+            particleColor="#FDB974"
+            particleDensity={100}
+            minSize={0.4}
+            maxSize={1.0}
+            speed={2}
+          >
+            <LazySection>
+              <ExperienceSection experiences={experienceCards} />
+            </LazySection>
+          </SectionSparkles>
+        </div>
+
+        {/* Technical Expertise — violet sparkles */}
+        <div id="expertise">
+          <SectionSparkles
+            id="sparkles-expertise"
+            particleColor="#A78BFA"
+            particleDensity={110}
+            minSize={0.3}
+            maxSize={1.1}
+            speed={1.8}
+          >
+            <LazySection>
+              <TechnicalExpertise />
+            </LazySection>
+          </SectionSparkles>
+        </div>
+
+        {/* Contact — emerald sparkles */}
+        <div id="contact">
+          <SectionSparkles
+            id="sparkles-contact"
+            particleColor="#34D399"
+            particleDensity={100}
+            minSize={0.4}
+            maxSize={1.2}
+            speed={2}
+          >
+            <LazySection>
+              <Contact />
+            </LazySection>
+          </SectionSparkles>
+        </div>
+
         <Footer />
       </main>
     </>

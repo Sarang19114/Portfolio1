@@ -2,7 +2,8 @@
 
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Image from 'next/image';
 
 // Unique accent color per project index
@@ -19,6 +20,60 @@ const Projects = ({ projects = [] }) => {
   const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
   const cardRef = useRef(null);
   const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
+  const [fullscreen, setFullscreen] = useState(false);
+
+  const openFullscreen = () => {
+    setFullscreen(true);
+    document.documentElement.classList.add('fullscreen-active');
+
+    // Request native browser fullscreen for a "really" full screen experience
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen().catch(() => { });
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+      elem.msRequestFullscreen();
+    }
+
+    // Try to auto-rotate to landscape on mobile
+    try {
+      if (screen.orientation && screen.orientation.lock) {
+        screen.orientation.lock('landscape').catch(() => { });
+      }
+    } catch (e) { }
+    // Prevent body scroll while modal is open
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeFullscreen = () => {
+    setFullscreen(false);
+    document.documentElement.classList.remove('fullscreen-active');
+
+    // Exit native browser fullscreen
+    if (document.exitFullscreen) {
+      document.exitFullscreen().catch(() => { });
+    } else if (document.webkitExitFullscreen) { /* Safari */
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* IE11 */
+      document.msExitFullscreen();
+    }
+
+    // Unlock orientation
+    try {
+      if (screen.orientation && screen.orientation.unlock) {
+        screen.orientation.unlock();
+      }
+    } catch (e) { }
+    document.body.style.overflow = '';
+  };
+
+  // Close on Escape key
+  useEffect(() => {
+    const handler = (e) => { if (e.key === 'Escape') closeFullscreen(); };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
 
   const handleNavigation = (direction) => {
     setSelectedProjectIndex((prevIndex) => {
@@ -92,17 +147,39 @@ const Projects = ({ projects = [] }) => {
             {/* ═══════ Left — Details ═══════ */}
             <div className="relative z-10 p-8 lg:p-10 flex flex-col">
               {/* Project number chip */}
-              <div className="project-animate flex items-center gap-3 mb-6">
-                <span
-                  className="text-xs font-mono tracking-widest px-3 py-1 rounded-full"
-                  style={{
-                    background: `${accent}15`,
-                    color: accent,
-                    border: `1px solid ${accent}30`,
-                  }}
-                >
-                  {String(selectedProjectIndex + 1).padStart(2, '0')} / {String(projectCount).padStart(2, '0')}
-                </span>
+              <div className="project-animate flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <span
+                    className="text-xs font-mono tracking-widest px-3 py-1 rounded-full"
+                    style={{
+                      background: `${accent}15`,
+                      color: accent,
+                      border: `1px solid ${accent}30`,
+                    }}
+                  >
+                    {String(selectedProjectIndex + 1).padStart(2, '0')} / {String(projectCount).padStart(2, '0')}
+                  </span>
+                </div>
+
+                {/* Mobile-only quick navigation */}
+                <div className="flex md:hidden items-center gap-2">
+                  <button
+                    onClick={() => handleNavigation('previous')}
+                    className="w-8 h-8 rounded-full flex items-center justify-center bg-black-300 border border-white/10 text-white/70 active:scale-90 transition-all"
+                  >
+                    <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
+                      <path fillRule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clipRule="evenodd" />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={() => handleNavigation('next')}
+                    className="w-8 h-8 rounded-full flex items-center justify-center bg-black-300 border border-white/10 text-white/70 active:scale-90 transition-all"
+                  >
+                    <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
+                      <path fillRule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clipRule="evenodd" />
+                    </svg>
+                  </button>
+                </div>
               </div>
 
               {/* Logo + Title */}
@@ -203,7 +280,7 @@ const Projects = ({ projects = [] }) => {
             </div>
 
             {/* ═══════ Right — Preview ═══════ */}
-            <div className="relative min-h-[420px] lg:min-h-[520px] flex items-stretch overflow-hidden bg-black-200 border-l border-black-300">
+            <div className="relative min-h-[420px] lg:min-h-[500px] flex items-stretch overflow-hidden bg-black-200 border-l border-black-300">
               {/* Ambient gradient tinted per-project */}
               <div
                 className="absolute inset-0 opacity-20 transition-all duration-700"
@@ -225,37 +302,90 @@ const Projects = ({ projects = [] }) => {
                     {currentProject.href}
                   </div>
                 </div>
-                {/* Video / image preview — fills remaining space */}
-                <div className="relative flex-1 bg-black-100">
-                  {currentProject.texture ? (
+                {/* Preview area — fixed, fills rest of panel */}
+                <div className="relative flex-1 bg-black-100 overflow-hidden">
+                  {currentProject.video ? (
                     <video
-                      key={currentProject.texture}
-                      src={currentProject.texture}
+                      key={currentProject.video}
+                      src={currentProject.video}
                       autoPlay
                       loop
                       muted
                       playsInline
-                      className="absolute inset-0 w-full h-full object-cover"
+                      className="absolute inset-0 w-full h-full object-contain"
                     />
                   ) : currentProject.spotlight ? (
                     <Image
                       src={currentProject.spotlight}
                       alt="preview"
                       width={800}
-                      height={450}
-                      className="absolute inset-0 w-full h-full object-cover opacity-60"
+                      height={500}
+                      className="absolute inset-0 w-full h-full object-contain opacity-80"
                     />
                   ) : (
                     <div className="absolute inset-0 flex items-center justify-center text-white/20 font-mono text-sm">
                       Preview
                     </div>
                   )}
+
+                  {/* Fullscreen button — all devices */}
+                  <button
+                    onClick={openFullscreen}
+                    className="absolute bottom-3 right-3 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-sm border border-white/20 text-white/80 text-[11px] font-medium active:scale-95 transition-all hover:bg-black/80 hover:border-white/40"
+                  >
+                    <svg viewBox="0 0 20 20" fill="currentColor" className="w-3.5 h-3.5">
+                      <path d="M3 3h5v1.5H4.5V8H3V3zm9 0h5v5h-1.5V4.5H12V3zM3 12h1.5v3.5H8V17H3v-5zm13.5 3.5H13V17h5v-5h-1.5v3.5z" />
+                    </svg>
+                    Full Screen
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* ═══════ Fullscreen Modal (using Portal to cover ALL sections) ═══════ */}
+      {fullscreen && typeof document !== 'undefined' && createPortal(
+        <div
+          className="fixed inset-0 z-[9999] bg-black flex items-center justify-center p-0"
+          onClick={closeFullscreen}
+        >
+          {/* Close button */}
+          <button
+            onClick={closeFullscreen}
+            className="absolute top-6 right-6 z-[10000] w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white active:scale-90 hover:bg-white/20 transition-all shadow-2xl"
+          >
+            <svg viewBox="0 0 20 20" fill="currentColor" className="w-6 h-6">
+              <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+            </svg>
+          </button>
+
+          {/* Content */}
+          <div className="w-full h-full flex items-center justify-center" onClick={e => e.stopPropagation()}>
+            {currentProject.video ? (
+              <video
+                src={currentProject.video}
+                autoPlay
+                loop
+                muted
+                playsInline
+                controls
+                className="w-full h-full object-contain"
+              />
+            ) : currentProject.spotlight ? (
+              <Image
+                src={currentProject.spotlight}
+                alt="preview"
+                width={1600}
+                height={900}
+                className="w-full h-full object-contain"
+              />
+            ) : null}
+          </div>
+        </div>,
+        document.body
+      )}
 
       {/* ═══════ Bottom navigation ═══════ */}
       <div className="flex items-center justify-center gap-6 mt-10">

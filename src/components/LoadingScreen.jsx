@@ -56,8 +56,8 @@ const LoadingScreen = () => {
         {/* Initials — monogram accent */}
         <div
           className={`text-[10px] tracking-[0.5em] uppercase font-light transition-all duration-700 ease-out ${lineRevealed
-              ? 'opacity-40 translate-y-0'
-              : 'opacity-0 translate-y-2'
+            ? 'opacity-40 translate-y-0'
+            : 'opacity-0 translate-y-2'
             }`}
           style={{ color: '#62e0ff' }}
         >
@@ -66,14 +66,16 @@ const LoadingScreen = () => {
 
         {/* Name */}
         <h1
-          className={`text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extralight tracking-[0.06em] text-white transition-all duration-800 ease-out ${textRevealed
-              ? 'opacity-100 translate-y-0'
-              : 'opacity-0 translate-y-4'
+          className={`text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-extralight tracking-[0.06em] text-white transition-all duration-800 ease-out ${textRevealed
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 translate-y-4'
             }`}
           style={{ fontFamily: "'General Sans', 'Inter', sans-serif" }}
         >
-          <span className="font-light">Sarang</span>
-          <span className="font-semibold ml-3 sm:ml-4 bg-gradient-to-r from-white via-white to-blue-200 bg-clip-text text-transparent">
+          <span className="font-semibold bg-gradient-to-r from-white via-white to-blue-200 bg-clip-text text-transparent">
+            Sarang
+          </span>
+          <span className="font-light ml-3 sm:ml-4">
             Rastogi
           </span>
         </h1>
@@ -90,8 +92,8 @@ const LoadingScreen = () => {
         {/* Subtitle */}
         <p
           className={`text-[11px] sm:text-xs tracking-[0.35em] uppercase transition-all duration-700 ease-out ${subtitleRevealed
-              ? 'opacity-40 translate-y-0'
-              : 'opacity-0 translate-y-2'
+            ? 'opacity-40 translate-y-0'
+            : 'opacity-0 translate-y-2'
             }`}
           style={{ color: '#a0a0b0' }}
         >

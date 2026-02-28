@@ -2,20 +2,12 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
-import Globe from 'react-globe.gl';
 import GitHubCalendar from 'react-github-calendar';
-
 import Button from '../components/Button.jsx';
+import RotatingEarth from '../components/RotatingEarth.jsx';
 
 const About = () => {
   const [hasCopied, setHasCopied] = useState(false);
-  const globeRef = useRef();
-
-  useEffect(() => {
-    if (globeRef.current) {
-      globeRef.current.pointOfView({ lat: 28.5355, lng: 77.3910, altitude: 1.5 }, 0);
-    }
-  }, []);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(' rastogi.sarang19@gmail.com');
@@ -102,18 +94,7 @@ const About = () => {
         <div className="col-span-1 xl:row-span-4">
           <div className="grid-container">
             <div className="rounded-3xl w-full sm:h-[326px] h-fit flex justify-center items-center">
-              <Globe
-                ref={globeRef}
-                height={326}
-                width={326}
-                backgroundColor="rgba(0, 0, 0, 0)"
-                backgroundImageOpacity={0.5}
-                showAtmosphere
-                showGraticules
-                globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
-                bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
-                labelsData={[{ lat: 28.5355, lng: 77.3910, text: 'Noida, India', color: 'white', size: 15 }]}
-              />
+              <RotatingEarth width={326} height={326} className="w-full h-full" />
             </div>
             <div>
               <p className="grid-headtext">I&apos;m very flexible with time zone communications & locations</p>

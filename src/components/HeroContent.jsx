@@ -44,7 +44,7 @@ const HeroContent = () => {
                 <motion.p
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
+                    transition={{ duration: 0.6, delay: 2.4 }}
                     className="text-center text-white text-base sm:text-2xl font-generalsans font-medium">
                     Hi, I am <span className="bg-gradient-to-r from-blue-300 to-blue-500 bg-clip-text text-transparent font-bold">Sarang</span>
                 </motion.p>
@@ -53,7 +53,7 @@ const HeroContent = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
+                    transition={{ duration: 0.8, delay: 2.6 }}
                     className="text-center"
                 >
                     <h1 className="hero_tag text-white">
@@ -73,14 +73,13 @@ const HeroContent = () => {
                     </h1>
                 </motion.div>
 
-                {/* Subtitle */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.8 }}
+                    transition={{ duration: 0.6, delay: 3.0 }}
                     className="flex justify-center mt-2 sm:mt-4"
                 >
-                    <p className="text-center text-white/90 text-xs sm:text-lg max-w-2xl font-generalsans leading-relaxed px-4 py-2 sm:px-6 sm:py-3 rounded-xl bg-black/50 backdrop-blur-md border border-white/5">
+                    <p className="text-center text-white/80 text-xs sm:text-lg max-w-2xl font-generalsans leading-relaxed px-4 sm:px-6">
                         Building performant web experiences with modern technologies.
                         <br className="hidden sm:block" />
                         Passionate about clean code and creative interfaces.
@@ -91,7 +90,7 @@ const HeroContent = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 1.0 }}
+                    transition={{ duration: 0.6, delay: 3.2 }}
                     className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-3 mt-2 sm:mt-6"
                 >
                     {['React', 'Next.js', 'Node.js', 'Three.js', 'Python'].map((tech, i) => (
@@ -99,7 +98,7 @@ const HeroContent = () => {
                             key={tech}
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.4, delay: 1.1 + i * 0.1 }}
+                            transition={{ duration: 0.4, delay: 3.3 + i * 0.1 }}
                             className="px-3 py-1.5 text-xs sm:text-sm rounded-full border border-white/10 bg-black/40 text-white-600 backdrop-blur-md hover:border-blue-500/40 hover:text-blue-300 transition-all duration-300 cursor-default"
                         >
                             {tech}
@@ -112,7 +111,7 @@ const HeroContent = () => {
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.4 }}
+                transition={{ duration: 0.6, delay: 3.6 }}
                 className="relative left-0 right-0 w-full z-20 c-space mt-6 sm:mt-16"
             >
                 <a href="#contact" className="group w-fit mx-auto block">

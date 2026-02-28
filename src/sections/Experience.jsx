@@ -4,14 +4,46 @@ import React from "react";
 import Image from "next/image";
 import { Timeline } from "../components/ui/timeline";
 
+const SpotlightCard = ({ children }) => {
+  const [pos, setPos] = React.useState({ x: 0, y: 0 });
+  const [opacity, setOpacity] = React.useState(0);
+
+  const handleMouseMove = (e) => {
+    const { left, top } = e.currentTarget.getBoundingClientRect();
+    setPos({ x: e.clientX - left, y: e.clientY - top });
+  };
+
+  return (
+    <div
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setOpacity(1)}
+      onMouseLeave={() => setOpacity(0)}
+      className="relative p-[1px] rounded-xl overflow-hidden bg-black-300/50"
+    >
+      {/* Moving Beam Layer */}
+      <div
+        className="pointer-events-none absolute -inset-px transition-opacity duration-300"
+        style={{
+          background: `radial-gradient(500px circle at ${pos.x}px ${pos.y}px, rgba(59, 130, 246, 0.45), transparent 70%)`,
+          opacity,
+        }}
+      />
+
+      {/* Inner Card Content */}
+      <div className="relative rounded-[11px] bg-black-100/95 p-5 md:p-8 h-full w-full z-10">
+        {children}
+      </div>
+    </div>
+  );
+};
+
 const ExperienceSection = ({ experiences = [] }) => {
   // Transform experience data into timeline format
   const timelineData = experiences.map((card) => ({
     title: card.date,
     content: (
       <div className="pb-8 md:pb-16">
-        {/* Dark card matching website theme */}
-        <div className="card-border rounded-xl p-5 md:p-8">
+        <SpotlightCard>
           {/* Role & Company Header */}
           <div className="flex items-start gap-4 mb-6">
             <div className="relative flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-xl overflow-hidden border border-black-300 bg-black-100">
@@ -86,7 +118,7 @@ const ExperienceSection = ({ experiences = [] }) => {
                             </div>
                           </div>
                           <div className="flex flex-col">
-                            <span className="text-xs font-semibold text-white leading-tight">{boss.name}</span>
+                            <span className="text-xs font-semibold text-white-800 leading-tight">{boss.name}</span>
                             <span className="text-[10px] text-white-500 leading-tight">{boss.position}</span>
                           </div>
                         </a>
@@ -100,7 +132,7 @@ const ExperienceSection = ({ experiences = [] }) => {
               </div>
             </div>
           )}
-        </div>
+        </SpotlightCard>
       </div>
     ),
   }));
