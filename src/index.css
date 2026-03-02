@@ -724,9 +724,3 @@ section {
 .card:hover::before {
   opacity: 1;
 }
-
-/* Hide content while fullscreen project preview is open */
-.fullscreen-active header,
-.fullscreen-active main {
-  display: none !important;
-}

@@ -21,51 +21,28 @@ const Projects = ({ projects = [] }) => {
   const cardRef = useRef(null);
   const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
   const [fullscreen, setFullscreen] = useState(false);
+  const scrollPosRef = useRef(0);
 
   const openFullscreen = () => {
+    // Save scroll position and lock the body in-place (prevents scroll-to-top
+    // that happens when overflow:hidden is applied naively)
+    const scrollY = window.scrollY;
+    scrollPosRef.current = scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = '100%';
     setFullscreen(true);
-    document.documentElement.classList.add('fullscreen-active');
-
-    // Request native browser fullscreen for a "really" full screen experience
-    const elem = document.documentElement;
-    if (elem.requestFullscreen) {
-      elem.requestFullscreen().catch(() => { });
-    } else if (elem.webkitRequestFullscreen) { /* Safari */
-      elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) { /* IE11 */
-      elem.msRequestFullscreen();
-    }
-
-    // Try to auto-rotate to landscape on mobile
-    try {
-      if (screen.orientation && screen.orientation.lock) {
-        screen.orientation.lock('landscape').catch(() => { });
-      }
-    } catch (e) { }
-    // Prevent body scroll while modal is open
-    document.body.style.overflow = 'hidden';
   };
 
   const closeFullscreen = () => {
+    // Remove body lock and restore exact scroll position — no native
+    // fullscreen API is used, so the browser never resets scroll.
+    const scrollY = scrollPosRef.current;
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
     setFullscreen(false);
-    document.documentElement.classList.remove('fullscreen-active');
-
-    // Exit native browser fullscreen
-    if (document.exitFullscreen) {
-      document.exitFullscreen().catch(() => { });
-    } else if (document.webkitExitFullscreen) { /* Safari */
-      document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) { /* IE11 */
-      document.msExitFullscreen();
-    }
-
-    // Unlock orientation
-    try {
-      if (screen.orientation && screen.orientation.unlock) {
-        screen.orientation.unlock();
-      }
-    } catch (e) { }
-    document.body.style.overflow = '';
+    window.scrollTo({ top: scrollY, behavior: 'instant' });
   };
 
   // Close on Escape key
