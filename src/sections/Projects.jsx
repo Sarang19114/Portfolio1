@@ -213,11 +213,8 @@ const Projects = ({ projects = [] }) => {
                 ))}
               </div>
 
-              {/* Spacer */}
-              <div className="flex-grow" />
-
               {/* Actions */}
-              <div className="project-animate flex flex-wrap items-center gap-3 pt-5 border-t border-black-300">
+              <div className="project-animate flex flex-wrap items-center gap-3">
                 <a
                   href={currentProject.href}
                   target="_blank"
@@ -238,8 +235,9 @@ const Projects = ({ projects = [] }) => {
                   </svg>
                   View Live
                 </a>
+                {currentProject.srcCode && (
                 <a
-                  href={currentProject.href}
+                  href={currentProject.srcCode}
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium text-white/70 border border-white/10 hover:border-white/25 hover:text-white/90 transition-all duration-300 hover:bg-white/[0.04]"
@@ -253,6 +251,7 @@ const Projects = ({ projects = [] }) => {
                   </svg>
                   Source Code
                 </a>
+                )}
               </div>
             </div>
 
