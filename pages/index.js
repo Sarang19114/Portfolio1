@@ -87,12 +87,30 @@ export default function Home({ projects, experiences, experienceCards }) {
   return (
     <>
       <Head>
-        <title>Sarang Rastogi - Full-Stack Developer Portfolio</title>
-        <meta name="description" content="Final Year B. Tech CSE Student & Full-Stack Developer specializing in Next.js, React, and modern web technologies" />
+        <title>Sarang Rastogi | Full Stack Developer</title>
+        <meta
+          name="description"
+          content="Sarang Rastogi is a full-stack developer specializing in React, Next.js, AI systems, and scalable backend architecture."
+        />
+        <meta
+          name="keywords"
+          content="Sarang Rastogi, Full Stack Developer, React Developer, Next.js Developer, AI Engineer, MongoDB, Express, Portfolio"
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta property="og:title" content="Sarang Rastogi - Full-Stack Developer" />
-        <meta property="og:description" content="Explore my portfolio featuring modern web applications built with Next.js, React, and Three.js" />
+        <meta property="og:title" content="Sarang Rastogi | Full Stack Developer" />
+        <meta
+          property="og:description"
+          content="Portfolio of Sarang Rastogi showcasing full-stack projects, AI systems and scalable applications."
+        />
+        <meta property="og:url" content="https://sarangrastogi.vercel.app" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://sarangrastogi.vercel.app/assets/Sarang1.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Sarang Rastogi" />
+        <meta name="twitter:description" content="Full Stack Developer Portfolio" />
+        <meta name="twitter:image" content="https://sarangrastogi.vercel.app/assets/Sarang1.png" />
       </Head>
       <LoadingScreen />
       <main className="mx-auto relative overflow-hidden">
